@@ -95,7 +95,7 @@
 
     /* ----- Typed role line ----- */
     const typed = document.getElementById('typed');
-    const roles = ['Backend Engineer', 'Distributed Systems', 'Kafka & Microservices'];
+    const roles = ['Backend Engineer', 'Distributed Systems', 'Kafka & Microservices', 'LLM & AI Agents', 'RAG & MCP'];
     let ri = 0, ci = roles[0].length, deleting = true;
     const type = () => {
         const word = roles[ri];
