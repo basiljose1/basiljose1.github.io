@@ -5,6 +5,26 @@
     const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
     root.classList.add('js');
 
+    /* ----- Theme toggle (saved theme is applied by the inline script in <head>) ----- */
+    const themeBtn = document.getElementById('themeToggle');
+    const themeMeta = document.querySelector('meta[name="theme-color"]');
+    const syncTheme = () => {
+        const dark = root.dataset.theme === 'dark';
+        themeBtn.setAttribute('aria-pressed', dark);
+        themeMeta.content = getComputedStyle(root).getPropertyValue('--bg').trim();
+    };
+    themeBtn.addEventListener('click', () => {
+        const dark = root.dataset.theme !== 'dark';
+        if (!reduceMotion) {
+            root.classList.add('theme-anim');
+            setTimeout(() => root.classList.remove('theme-anim'), 300);
+        }
+        root.dataset.theme = dark ? 'dark' : 'light';
+        try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch (e) { /* storage blocked: theme lasts this visit only */ }
+        syncTheme();
+    });
+    syncTheme();
+
     /* ----- Mobile nav ----- */
     const toggle = document.getElementById('navToggle');
     const menu = document.getElementById('navMenu');
